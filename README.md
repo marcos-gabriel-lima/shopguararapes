@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Cine Guararapes — clone do app ingresso.com
 
-## Getting Started
+Clone do app de compra de ingressos de cinema (estilo **ingresso.com**), focado no
+**Cinépolis Guararapes — Shopping Guararapes** (Jaboatão dos Guararapes/PE).
 
-First, run the development server:
+Feito com **Next.js 16 + React 19 + TypeScript + Tailwind v4**. Visual mobile com
+barra de abas inferior, tema escuro e accent amarelo.
+
+## Telas
+
+- **Início** — seletor de cidade, carrossel de destaque, trilhas "Em Alta" e "Em breve".
+- **Filmes** — abas Em cartaz / Em breve, filtros por gênero e grade de pôsteres.
+- **Cinemas** — sessões por data, com formatos (NORMAL/3D/IMAX) e horários.
+- **Notícias** — feed de matérias.
+- **Fluxo de compra** — detalhe do filme → seleção de poltronas → checkout (pagamento fictício) → confirmação com código.
+
+## Rodando localmente
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Dica: no DevTools, ative o modo dispositivo (mobile) para ver igual aos prints do app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy na Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Suba este projeto para um repositório no GitHub.
+2. Em [vercel.com](https://vercel.com) → **Add New… → Project** → importe o repositório.
+3. Framework: **Next.js** (detectado automaticamente). Nenhuma variável de ambiente é necessária.
+4. **Deploy**. As imagens dos pôsteres já estão liberadas em `next.config.ts`
+   (`images.remotePatterns` → `image.tmdb.org`).
 
-## Learn More
+## Créditos
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Pôsteres e dados de filmes:** [The Movie Database (TMDB)](https://www.themoviedb.org).
+  Este produto usa imagens do TMDB, mas **não é endossado nem certificado pelo TMDB**.
+- Projeto **demonstrativo** — sessões, preços e pagamentos são fictícios; não realiza vendas reais.

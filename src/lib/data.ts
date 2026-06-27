@@ -1,0 +1,263 @@
+import type { Movie, Session, NewsItem } from "./types";
+
+export const CINEMA = {
+  name: "Cinépolis Guararapes",
+  city: "Jaboatão dos Guararapes",
+  brand: "Shopping Guararapes",
+  address: "Av. Barreto de Menezes, 800 — Piedade, Jaboatão dos Guararapes — PE",
+  rooms: 8,
+  phone: "(81) 3500-0000",
+  features: ["Salas IMAX", "Macro XE", "VIP reclinável", "Bomboniere"],
+};
+
+export const GENRES = [
+  "Estreias",
+  "Aventura",
+  "Ação",
+  "Fantasia",
+  "Animação",
+  "Comédia",
+  "Suspense",
+  "Terror",
+];
+
+/** Monta a URL de imagem do TMDB. */
+export function tmdb(hash: string, size: "w342" | "w500" | "w780" | "original" = "w500") {
+  return `https://image.tmdb.org/t/p/${size}/${hash}.jpg`;
+}
+
+export const MOVIES: Movie[] = [
+  {
+    id: "m1",
+    slug: "supergirl",
+    title: "Supergirl",
+    synopsis:
+      "Quando um adversário implacável atinge perto demais de casa, Kara Zor-El embarca numa jornada interestelar de vingança e justiça ao lado de uma companhia improvável. Uma nova era do universo DC nas telonas.",
+    genres: ["Ação", "Aventura"],
+    durationMin: 99,
+    classification: "14",
+    director: "Craig Gillespie",
+    cast: ["Milly Alcock", "Jason Momoa", "Eve Ridley"],
+    releaseDate: "2026-06-25",
+    status: "showing",
+    rating: 8.3,
+    poster: ["#2563eb", "#f59e0b"],
+    posterUrl: tmdb("9jqZfA7eaxfXWkj9vZLQbla7c5r", "w780"),
+  },
+  {
+    id: "m2",
+    slug: "toy-story-5",
+    title: "Toy Story 5",
+    synopsis:
+      "Quando Bonnie ganha um tablet, Buzz, Woody, Jessie e a turma encaram uma nova ameaça à hora de brincar. Diversão para toda a família.",
+    genres: ["Animação", "Aventura", "Comédia"],
+    durationMin: 100,
+    classification: "L",
+    director: "Andrew Stanton",
+    cast: ["(Vozes) Tom Hanks", "Tim Allen"],
+    releaseDate: "2026-06-17",
+    status: "showing",
+    rating: 8.0,
+    poster: ["#22c55e", "#0ea5e9"],
+    posterUrl: tmdb("iwEuq51BV59mm2LgZ42bWgPgagW", "w780"),
+  },
+  {
+    id: "m3",
+    slug: "homem-aranha-um-novo-dia",
+    title: "Homem-Aranha: Um Novo Dia",
+    originalTitle: "Spider-Man: Brand New Day",
+    synopsis:
+      "Quatro anos após os eventos de Sem Volta para Casa, Peter vive sozinho numa Nova York que esqueceu seu nome — um Homem-Aranha em tempo integral diante de uma de suas ameaças mais poderosas. Em pré-venda.",
+    genres: ["Ação", "Aventura"],
+    durationMin: 0,
+    classification: "?",
+    director: "Destin Daniel Cretton",
+    cast: ["Tom Holland", "Zendaya"],
+    releaseDate: "2026-07-29",
+    releaseLabel: "Estreia 29/07",
+    status: "coming",
+    preSale: true,
+    rating: 0,
+    poster: ["#dc2626", "#1e3a8a"],
+    posterUrl: tmdb("x0nvYzQpyJc5pdT9lMnkMuYAg0O", "w780"),
+  },
+  {
+    id: "m4",
+    slug: "mestres-do-universo",
+    title: "Mestres do Universo",
+    originalTitle: "Masters of the Universe",
+    synopsis:
+      "Após 15 anos separado, a Espada do Poder leva o príncipe Adam de volta a Eternia, dominada por Esqueleto. Para salvar seu mundo, ele precisa abraçar seu destino como He-Man.",
+    genres: ["Aventura", "Fantasia", "Ação"],
+    durationMin: 125,
+    classification: "12",
+    director: "Travis Knight",
+    cast: ["Nicholas Galitzine", "Camila Mendes"],
+    releaseDate: "2026-07-10",
+    releaseLabel: "Estreia 10/07",
+    status: "coming",
+    rating: 0,
+    poster: ["#ea580c", "#3b0764"],
+    posterUrl: tmdb("uPuVEyoGrtoU9O2sLDhwtKPR78Z", "w780"),
+  },
+  {
+    id: "m5",
+    slug: "zootopia-2",
+    title: "Zootopia 2",
+    synopsis:
+      "Após o maior caso da história de Zootopia, os policiais novatos Judy Hopps e Nick Wilde seguem a trilha de um grande mistério quando Gary De'Snake vira a metrópole de cabeça para baixo.",
+    genres: ["Animação", "Aventura", "Comédia"],
+    durationMin: 108,
+    classification: "L",
+    director: "Jared Bush",
+    cast: ["(Vozes) Ginnifer Goodwin", "Jason Bateman"],
+    releaseDate: "2026-06-12",
+    status: "showing",
+    rating: 7.9,
+    poster: ["#f97316", "#1e40af"],
+    posterUrl: tmdb("sOgzzmyHJ3uWjEU509AwrcXoE71", "w780"),
+  },
+  {
+    id: "m6",
+    slug: "avatar-fogo-e-cinzas",
+    title: "Avatar: Fogo e Cinzas",
+    originalTitle: "Avatar: Fire and Ash",
+    synopsis:
+      "Após a guerra contra a RDA, Jake Sully e Neytiri enfrentam uma nova ameaça em Pandora: o Povo das Cinzas, uma tribo Na'vi violenta liderada pela impiedosa Varang.",
+    genres: ["Aventura", "Ação", "Fantasia"],
+    durationMin: 198,
+    classification: "12",
+    director: "James Cameron",
+    cast: ["Sam Worthington", "Zoe Saldaña", "Sigourney Weaver"],
+    releaseDate: "2026-06-05",
+    status: "showing",
+    rating: 8.5,
+    poster: ["#0ea5e9", "#0c4a6e"],
+    posterUrl: tmdb("3almrQT8GnrDjnQeWotdExjJhZm", "w780"),
+  },
+  {
+    id: "m7",
+    slug: "wicked-parte-2",
+    title: "Wicked: Parte 2",
+    originalTitle: "Wicked: For Good",
+    synopsis:
+      "Com uma multidão se voltando contra a Bruxa Má, Glinda e Elphaba precisam se unir uma última vez — sua amizade no centro de tudo — para mudar a si mesmas e toda Oz, para sempre.",
+    genres: ["Fantasia", "Aventura"],
+    durationMin: 137,
+    classification: "10",
+    director: "Jon M. Chu",
+    cast: ["Cynthia Erivo", "Ariana Grande"],
+    releaseDate: "2026-06-19",
+    status: "showing",
+    rating: 8.2,
+    poster: ["#16a34a", "#ec4899"],
+    posterUrl: tmdb("8VUn52P2qFepxG8b5W8pjS7DzCT", "w780"),
+  },
+  {
+    id: "m8",
+    slug: "predador-terras-selvagens",
+    title: "Predador: Terras Selvagens",
+    originalTitle: "Predator: Badlands",
+    synopsis:
+      "Banido de seu clã, um jovem Predador encontra uma aliada improvável em um androide danificado e parte numa jornada traiçoeira em busca do adversário definitivo.",
+    genres: ["Ação", "Aventura"],
+    durationMin: 107,
+    classification: "16",
+    director: "Dan Trachtenberg",
+    cast: ["Elle Fanning", "Dimitrius Schuster-Koloamatangi"],
+    releaseDate: "2026-06-10",
+    status: "showing",
+    rating: 7.7,
+    poster: ["#111827", "#7f1d1d"],
+    posterUrl: tmdb("f3yLlUrJDdDL8d4nxywyotN45SL", "w780"),
+  },
+];
+
+const TIMES_A = ["13:15", "13:30", "14:15", "16:40", "19:10", "21:45"];
+const TIMES_B = ["14:00", "16:30", "18:50", "21:20"];
+
+function buildSessions(): Session[] {
+  const sessions: Session[] = [];
+  const base = new Date("2026-06-27T00:00:00");
+  const showing = MOVIES.filter((m) => m.status === "showing");
+
+  showing.forEach((movie, mi) => {
+    for (let d = 0; d < 5; d++) {
+      const day = new Date(base);
+      day.setDate(base.getDate() + d);
+      const date = day.toISOString().slice(0, 10);
+      const times = mi % 2 === 0 ? TIMES_A : TIMES_B;
+
+      times.forEach((time, ti) => {
+        const format = ti === times.length - 1 && mi % 2 === 0 ? "IMAX" : ti % 2 === 0 ? "2D" : "3D";
+        const audio = ti % 2 === 0 ? "Dublado" : "Legendado";
+        const basePrice = format === "IMAX" ? 44 : format === "3D" ? 36 : 30;
+        sessions.push({
+          id: `${movie.id}-${date}-${time.replace(":", "")}`,
+          movieId: movie.id,
+          date,
+          time,
+          room: ((mi + ti) % CINEMA.rooms) + 1,
+          format,
+          audio,
+          price: basePrice,
+        });
+      });
+    }
+  });
+  return sessions;
+}
+
+export const SESSIONS: Session[] = buildSessions();
+
+export const NEWS: NewsItem[] = [
+  {
+    id: "n1",
+    title: "'Supergirl' bate recorde de bilheteria na estreia nacional",
+    date: "26/06/2026 | 18:43",
+    author: "Pamela Cordeiro",
+    category: "Bilheteria",
+    image: ["#2563eb", "#f59e0b"],
+    imageUrl: tmdb("9jqZfA7eaxfXWkj9vZLQbla7c5r", "w780"),
+  },
+  {
+    id: "n2",
+    title: "'Homem-Aranha: Um Novo Dia' abre pré-venda e ingressos esgotam em horas",
+    date: "26/06/2026 | 14:21",
+    author: "Rafael Lopes",
+    category: "Lançamentos",
+    image: ["#dc2626", "#1e3a8a"],
+    imageUrl: tmdb("x0nvYzQpyJc5pdT9lMnkMuYAg0O", "w780"),
+  },
+  {
+    id: "n3",
+    title: "'Avatar: Fogo e Cinzas' lidera as sessões IMAX do fim de semana",
+    date: "25/06/2026 | 09:10",
+    author: "Carla Mendes",
+    category: "Cinemas",
+    image: ["#0ea5e9", "#0c4a6e"],
+    imageUrl: tmdb("3almrQT8GnrDjnQeWotdExjJhZm", "w780"),
+  },
+  {
+    id: "n4",
+    title: "Confira a lista completa de estreias de julho nos cinemas",
+    date: "24/06/2026 | 20:05",
+    author: "Igor Petri",
+    category: "Estreias",
+    image: ["#7c3aed", "#0f172a"],
+    imageUrl: tmdb("uPuVEyoGrtoU9O2sLDhwtKPR78Z", "w780"),
+  },
+];
+
+export function getMovieBySlug(slug: string): Movie | undefined {
+  return MOVIES.find((m) => m.slug === slug);
+}
+export function getMovieById(id: string): Movie | undefined {
+  return MOVIES.find((m) => m.id === id);
+}
+export function getSessionById(id: string): Session | undefined {
+  return SESSIONS.find((s) => s.id === id);
+}
+export function getSessionsForMovie(movieId: string): Session[] {
+  return SESSIONS.filter((s) => s.movieId === movieId);
+}
