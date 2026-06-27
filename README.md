@@ -14,16 +14,10 @@ barra de abas inferior, tema escuro e accent amarelo.
 - **Notícias** — feed de matérias.
 - **Fluxo de compra** — detalhe do filme → seleção de poltronas → **bomboniere (combos)** → checkout (pagamento fictício) → confirmação com código.
 
-## Catálogo: estático ou dinâmico (TMDB)
+## Catálogo
 
-Por padrão o app usa um **catálogo de exemplo embutido** ([src/lib/data.ts](src/lib/data.ts)) com
-pôsteres reais do TMDB — funciona sem nenhuma configuração.
-
-Para um **catálogo dinâmico** (filmes em cartaz/em breve reais, atualizados sozinhos), defina a
-variável `TMDB_ACCESS_TOKEN` (veja [.env.example](.env.example)). Com a chave presente, as telas
-Início/Filmes/Cinemas e o detalhe do filme passam a buscar dados na
-[API do TMDB](https://developer.themoviedb.org) (com cache de 1h). Sem a chave, cai no estático
-automaticamente.
+Os filmes ficam em [src/lib/data.ts](src/lib/data.ts) (catálogo de exemplo, com pôsteres reais).
+Para trocar/adicionar filmes, é só editar esse arquivo. Nenhuma chave ou configuração é necessária.
 
 ## Rodando localmente
 
