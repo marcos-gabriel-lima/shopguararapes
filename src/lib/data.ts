@@ -1,4 +1,4 @@
-import type { Movie, Session, NewsItem } from "./types";
+import type { Movie, NewsItem, Snack } from "./types";
 
 export const CINEMA = {
   name: "Cinépolis Guararapes",
@@ -173,42 +173,50 @@ export const MOVIES: Movie[] = [
   },
 ];
 
-const TIMES_A = ["13:15", "13:30", "14:15", "16:40", "19:10", "21:45"];
-const TIMES_B = ["14:00", "16:30", "18:50", "21:20"];
-
-function buildSessions(): Session[] {
-  const sessions: Session[] = [];
-  const base = new Date("2026-06-27T00:00:00");
-  const showing = MOVIES.filter((m) => m.status === "showing");
-
-  showing.forEach((movie, mi) => {
-    for (let d = 0; d < 5; d++) {
-      const day = new Date(base);
-      day.setDate(base.getDate() + d);
-      const date = day.toISOString().slice(0, 10);
-      const times = mi % 2 === 0 ? TIMES_A : TIMES_B;
-
-      times.forEach((time, ti) => {
-        const format = ti === times.length - 1 && mi % 2 === 0 ? "IMAX" : ti % 2 === 0 ? "2D" : "3D";
-        const audio = ti % 2 === 0 ? "Dublado" : "Legendado";
-        const basePrice = format === "IMAX" ? 44 : format === "3D" ? 36 : 30;
-        sessions.push({
-          id: `${movie.id}-${date}-${time.replace(":", "")}`,
-          movieId: movie.id,
-          date,
-          time,
-          room: ((mi + ti) % CINEMA.rooms) + 1,
-          format,
-          audio,
-          price: basePrice,
-        });
-      });
-    }
-  });
-  return sessions;
-}
-
-export const SESSIONS: Session[] = buildSessions();
+export const SNACKS: Snack[] = [
+  {
+    id: "combo1",
+    name: "Combo Casal",
+    description: "2 pipocas grandes + 2 refrigerantes 500ml",
+    price: 49.9,
+    emoji: "🍿",
+  },
+  {
+    id: "combo2",
+    name: "Combo Individual",
+    description: "1 pipoca grande + 1 refrigerante 500ml",
+    price: 32.9,
+    emoji: "🥤",
+  },
+  {
+    id: "pipoca",
+    name: "Pipoca Grande",
+    description: "Pipoca salgada ou doce",
+    price: 24.0,
+    emoji: "🍿",
+  },
+  {
+    id: "refri",
+    name: "Refrigerante 700ml",
+    description: "Copo grande gelado",
+    price: 16.5,
+    emoji: "🥤",
+  },
+  {
+    id: "choco",
+    name: "Chocolate",
+    description: "Caixa de bombons",
+    price: 18.0,
+    emoji: "🍫",
+  },
+  {
+    id: "agua",
+    name: "Água Mineral",
+    description: "Sem gás 500ml",
+    price: 7.0,
+    emoji: "💧",
+  },
+];
 
 export const NEWS: NewsItem[] = [
   {
@@ -249,15 +257,3 @@ export const NEWS: NewsItem[] = [
   },
 ];
 
-export function getMovieBySlug(slug: string): Movie | undefined {
-  return MOVIES.find((m) => m.slug === slug);
-}
-export function getMovieById(id: string): Movie | undefined {
-  return MOVIES.find((m) => m.id === id);
-}
-export function getSessionById(id: string): Session | undefined {
-  return SESSIONS.find((s) => s.id === id);
-}
-export function getSessionsForMovie(movieId: string): Session[] {
-  return SESSIONS.filter((s) => s.movieId === movieId);
-}

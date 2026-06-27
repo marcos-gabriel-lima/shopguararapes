@@ -1,33 +1,17 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { MOVIES, SESSIONS } from "@/lib/data";
-import type { Session } from "@/lib/types";
+import type { Movie } from "@/lib/types";
+import { catalogDates, sessionsForMovieOnDate } from "@/lib/showtimes";
 import { dateParts, duration } from "@/lib/format";
 import { ClassBadge } from "./ClassBadge";
 import { MoviePoster } from "./MoviePoster";
-import { useBooking } from "@/context/BookingContext";
 
-export function CinemaSessions() {
+export function CinemaSessions({ movies }: { movies: Movie[] }) {
   const router = useRouter();
-  const { setSession } = useBooking();
-
-  const dates = useMemo(
-    () => Array.from(new Set(SESSIONS.map((s) => s.date))).sort(),
-    [],
-  );
+  const dates = catalogDates();
   const [activeDate, setActiveDate] = useState(dates[0]);
-
-  function choose(session: Session) {
-    setSession(session.id);
-    router.push(`/sessao/${session.id}`);
-  }
-
-  // filmes com sessões no dia
-  const moviesToday = MOVIES.filter((m) =>
-    SESSIONS.some((s) => s.movieId === m.id && s.date === activeDate),
-  );
 
   return (
     <div>
@@ -48,7 +32,7 @@ export function CinemaSessions() {
                 {p.isToday ? "Hoje" : p.weekday}
               </span>
               <span className="text-sm">
-                {String(p.day).padStart(2, "0")}/{String(p.month)}
+                {String(p.day).padStart(2, "0")}/{p.month}
               </span>
             </button>
           );
@@ -65,10 +49,8 @@ export function CinemaSessions() {
 
       {/* Sessões por filme */}
       <div className="space-y-4 px-4 pb-4">
-        {moviesToday.map((movie) => {
-          const sessions = SESSIONS.filter(
-            (s) => s.movieId === movie.id && s.date === activeDate,
-          ).sort((a, b) => a.time.localeCompare(b.time));
+        {movies.map((movie) => {
+          const sessions = sessionsForMovieOnDate(movie.id, activeDate);
           const formats = Array.from(new Set(sessions.map((s) => s.format)));
           const audios = Array.from(new Set(sessions.map((s) => s.audio)));
 
@@ -76,7 +58,7 @@ export function CinemaSessions() {
             <div key={movie.id} className="rounded-2xl border border-border bg-surface p-4">
               <div className="flex gap-3">
                 <div className="relative w-20 shrink-0">
-                  <MoviePoster movie={movie} />
+                  <MoviePoster movie={movie} sizes="80px" />
                   <span className="absolute inset-0 grid place-items-center">
                     <span className="grid h-9 w-9 place-items-center rounded-full bg-black/55 text-white">
                       ▶
@@ -88,7 +70,7 @@ export function CinemaSessions() {
                   <p className="mt-0.5 text-sm text-muted">{movie.genres.join(", ")}</p>
                   <div className="mt-2 flex items-center gap-2 text-sm text-muted">
                     <ClassBadge classification={movie.classification} size="sm" />
-                    <span>{duration(movie.durationMin)}</span>
+                    {movie.durationMin > 0 && <span>{duration(movie.durationMin)}</span>}
                   </div>
                 </div>
                 <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-muted" fill="none" stroke="currentColor" strokeWidth="2">
@@ -98,7 +80,6 @@ export function CinemaSessions() {
 
               <div className="my-4 h-px bg-border" />
 
-              {/* chips formato/áudio */}
               <div className="flex flex-wrap gap-2">
                 {[...formats.map((f) => (f === "2D" ? "NORMAL" : f)), ...audios].map((chip) => (
                   <span
@@ -110,12 +91,11 @@ export function CinemaSessions() {
                 ))}
               </div>
 
-              {/* horários */}
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {sessions.map((s) => (
                   <button
                     key={s.id}
-                    onClick={() => choose(s)}
+                    onClick={() => router.push(`/sessao/${s.id}`)}
                     className="rounded-lg border border-info/50 py-2.5 text-base font-bold text-info transition hover:bg-info hover:text-white"
                   >
                     {s.time}

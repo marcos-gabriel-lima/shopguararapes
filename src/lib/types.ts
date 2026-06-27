@@ -45,6 +45,22 @@ export interface TicketSelection {
   meia: number;
 }
 
+export interface Snack {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  emoji: string;
+}
+
+/** Snapshot da reserva guardado no contexto, independente da origem dos dados. */
+export interface OrderSnapshot {
+  movie: Movie;
+  session: Session;
+  seats: string[];
+  tickets: TicketSelection;
+}
+
 export interface NewsItem {
   id: string;
   title: string;

@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { CINEMA } from "@/lib/data";
+import { getShowingMovies } from "@/lib/catalog";
 import { CinemaSessions } from "@/components/CinemaSessions";
 
-export default function CinemasPage() {
+export default async function CinemasPage() {
+  const movies = await getShowingMovies();
   return (
     <div>
       {/* Top bar */}
@@ -32,7 +34,7 @@ export default function CinemasPage() {
         </span>
       </div>
 
-      <CinemaSessions />
+      <CinemaSessions movies={movies} />
     </div>
   );
 }

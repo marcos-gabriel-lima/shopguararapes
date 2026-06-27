@@ -1,14 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MOVIES, getMovieBySlug, getSessionsForMovie } from "@/lib/data";
+import { getMovieBySlug } from "@/lib/catalog";
+import { sessionsForMovie } from "@/lib/showtimes";
 import { MoviePoster } from "@/components/MoviePoster";
 import { ClassBadge } from "@/components/ClassBadge";
 import { SessionPicker } from "@/components/SessionPicker";
 import { duration } from "@/lib/format";
-
-export function generateStaticParams() {
-  return MOVIES.map((m) => ({ slug: m.slug }));
-}
 
 export default async function MoviePage({
   params,
@@ -16,10 +13,10 @@ export default async function MoviePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const movie = getMovieBySlug(slug);
+  const movie = await getMovieBySlug(slug);
   if (!movie) notFound();
 
-  const sessions = getSessionsForMovie(movie.id);
+  const sessions = sessionsForMovie(movie.id);
   const isShowing = movie.status === "showing";
 
   return (

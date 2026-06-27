@@ -2,17 +2,25 @@ import type { Movie, Session, TicketSelection } from "@/lib/types";
 import { MoviePoster } from "./MoviePoster";
 import { brl } from "@/lib/format";
 
+export interface SnackLine {
+  name: string;
+  qty: number;
+  price: number;
+}
+
 export function OrderSummary({
   movie,
   session,
   seats,
   tickets,
+  snacks = [],
   total,
 }: {
   movie: Movie;
   session: Session;
   seats: string[];
   tickets: TicketSelection;
+  snacks?: SnackLine[];
   total: number;
 }) {
   const full = session.price;
@@ -22,7 +30,7 @@ export function OrderSummary({
     <div className="rounded-2xl border border-border bg-surface p-5">
       <div className="flex gap-3">
         <div className="w-16 shrink-0">
-          <MoviePoster movie={movie} />
+          <MoviePoster movie={movie} sizes="64px" />
         </div>
         <div>
           <h3 className="font-bold leading-tight">{movie.title}</h3>
@@ -41,9 +49,10 @@ export function OrderSummary({
         {tickets.inteira > 0 && (
           <Row label={`Inteira × ${tickets.inteira}`} value={brl(tickets.inteira * full)} />
         )}
-        {tickets.meia > 0 && (
-          <Row label={`Meia × ${tickets.meia}`} value={brl(tickets.meia * half)} />
-        )}
+        {tickets.meia > 0 && <Row label={`Meia × ${tickets.meia}`} value={brl(tickets.meia * half)} />}
+        {snacks.map((s) => (
+          <Row key={s.name} label={`${s.name} × ${s.qty}`} value={brl(s.qty * s.price)} />
+        ))}
       </dl>
 
       <div className="my-4 h-px bg-border" />

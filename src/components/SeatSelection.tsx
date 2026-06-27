@@ -11,7 +11,7 @@ const MAX_SEATS = 8;
 
 export function SeatSelection({ movie, session }: { movie: Movie; session: Session }) {
   const router = useRouter();
-  const { setSeats, setTickets } = useBooking();
+  const { setOrder } = useBooking();
 
   const occupied = useMemo(() => occupiedSeats(session.id), [session.id]);
   const [selected, setSelected] = useState<string[]>([]);
@@ -38,8 +38,7 @@ export function SeatSelection({ movie, session }: { movie: Movie; session: Sessi
 
   function proceed() {
     if (total === 0) return;
-    setSeats(selected);
-    setTickets({ inteira, meia });
+    setOrder({ movie, session, seats: selected, tickets: { inteira, meia } });
     router.push("/checkout");
   }
 
