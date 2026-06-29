@@ -22,6 +22,8 @@ export interface Movie {
   poster: [string, string];
   /** URL do pôster real (TMDB). */
   posterUrl?: string;
+  /** URL da imagem widescreen (backdrop) — usada no ingresso. */
+  backdropUrl?: string;
 }
 
 export type Format = "2D" | "3D" | "IMAX";

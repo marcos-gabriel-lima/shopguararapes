@@ -43,6 +43,7 @@ export const MOVIES: Movie[] = [
     rating: 8.3,
     poster: ["#2563eb", "#f59e0b"],
     posterUrl: tmdb("9jqZfA7eaxfXWkj9vZLQbla7c5r", "w780"),
+    backdropUrl: tmdb("54KIfdTEzOliHDKx0OkzYGqAICx", "w780"),
   },
   {
     id: "m2",
@@ -60,6 +61,7 @@ export const MOVIES: Movie[] = [
     rating: 8.0,
     poster: ["#22c55e", "#0ea5e9"],
     posterUrl: tmdb("iwEuq51BV59mm2LgZ42bWgPgagW", "w780"),
+    backdropUrl: tmdb("8sSKdEmlmqF4kJUd28SqthXC4yZ", "w780"),
   },
   {
     id: "m3",
@@ -116,6 +118,7 @@ export const MOVIES: Movie[] = [
     rating: 7.9,
     poster: ["#f97316", "#1e40af"],
     posterUrl: tmdb("sOgzzmyHJ3uWjEU509AwrcXoE71", "w780"),
+    backdropUrl: tmdb("lgotja3xMoJZbynwHfcQcJAEMWH", "w780"),
   },
   {
     id: "m6",
@@ -134,6 +137,7 @@ export const MOVIES: Movie[] = [
     rating: 8.5,
     poster: ["#0ea5e9", "#0c4a6e"],
     posterUrl: tmdb("3almrQT8GnrDjnQeWotdExjJhZm", "w780"),
+    backdropUrl: tmdb("u8DU5fkLoM5tTRukzPC31oGPxaQ", "w780"),
   },
   {
     id: "m7",
@@ -152,6 +156,7 @@ export const MOVIES: Movie[] = [
     rating: 8.2,
     poster: ["#16a34a", "#ec4899"],
     posterUrl: tmdb("8VUn52P2qFepxG8b5W8pjS7DzCT", "w780"),
+    backdropUrl: tmdb("cGbPBHKSFO7hSIjxkb3KOaGdOep", "w780"),
   },
   {
     id: "m8",
@@ -170,6 +175,7 @@ export const MOVIES: Movie[] = [
     rating: 7.7,
     poster: ["#111827", "#7f1d1d"],
     posterUrl: tmdb("f3yLlUrJDdDL8d4nxywyotN45SL", "w780"),
+    backdropUrl: tmdb("82lM4GJ9uuNvNDOEpxFy77uv4Ak", "w780"),
   },
 ];
 

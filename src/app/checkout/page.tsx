@@ -2,20 +2,36 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useBooking } from "@/context/BookingContext";
 import { SNACKS } from "@/lib/data";
 import { brl, longDate } from "@/lib/format";
 import { Stepperbar } from "@/components/Stepperbar";
 import { OrderSummary, type SnackLine } from "@/components/OrderSummary";
 import { Bomboniere } from "@/components/Bomboniere";
+import { TicketView, type TicketData } from "@/components/TicketView";
 
 type Status = "form" | "processing" | "done";
 
-function makeCode() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const FEE_RATE = 0.14; // taxa de conveniência
+
+function randCode(chars: string, len: number) {
   let s = "";
-  for (let i = 0; i < 6; i++) s += chars[Math.floor(Math.random() * chars.length)];
-  return `CG-${s}`;
+  for (let i = 0; i < len; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  return s;
+}
+
+function pad2(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+function nowStrings() {
+  const d = new Date();
+  const date = `${pad2(d.getDate())}/${pad2(d.getMonth() + 1)}/${d.getFullYear()} ${pad2(
+    d.getHours(),
+  )}:${pad2(d.getMinutes())}`;
+  const time = `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+  return { date, time };
 }
 
 function maskCpf(v: string) {
@@ -35,9 +51,10 @@ function maskCard(v: string) {
 }
 
 export default function CheckoutPage() {
+  const router = useRouter();
   const { order, reset } = useBooking();
   const [status, setStatus] = useState<Status>("form");
-  const [code, setCode] = useState("");
+  const [ticket, setTicket] = useState<TicketData | null>(null);
   const [snackQty, setSnackQty] = useState<Record<string, number>>({});
 
   const [name, setName] = useState("");
@@ -63,7 +80,9 @@ export default function CheckoutPage() {
   );
 
   const snacksTotal = snackLines.reduce((sum, s) => sum + s.qty * s.price, 0);
-  const total = ticketsTotal + snacksTotal;
+  const subtotal = ticketsTotal + snacksTotal;
+  const fee = Math.round(subtotal * FEE_RATE * 100) / 100;
+  const total = subtotal + fee;
 
   // Sem reserva válida
   if (!order) {
@@ -97,52 +116,35 @@ export default function CheckoutPage() {
     if (!valid) return;
     setStatus("processing");
     window.setTimeout(() => {
-      setCode(makeCode());
+      const t = nowStrings();
+      setTicket({
+        movie,
+        session,
+        seats,
+        tickets,
+        code: randCode("ABCDEFGHJKLMNPQRSTUVWXYZ123456789", 7),
+        orderNumber: randCode("0123456789ABCDEF", 24),
+        purchaseDate: t.date,
+        validatedAt: t.time,
+        customerName: name,
+        customerPhone: undefined,
+        fee,
+        total,
+      });
       setStatus("done");
     }, 1400);
   }
 
-  // Confirmação
-  if (status === "done") {
+  // Confirmação — ingresso digital
+  if (status === "done" && ticket) {
     return (
-      <div className="px-4 py-10">
-        <div className="rounded-2xl border border-border bg-surface p-6 text-center">
-          <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-green-500/15 text-3xl">
-            ✓
-          </div>
-          <h1 className="mt-4 text-2xl font-extrabold">Compra confirmada!</h1>
-          <p className="mt-1 text-sm text-muted">
-            Enviamos os ingressos para <strong>{email}</strong>
-          </p>
-
-          <div className="my-6 rounded-xl border border-dashed border-accent/50 bg-accent/5 p-4">
-            <p className="text-xs uppercase tracking-widest text-muted">Código do pedido</p>
-            <p className="mt-1 text-3xl font-black tracking-widest text-accent">{code}</p>
-            <p className="mt-1 text-xs text-muted">
-              Apresente este código na bilheteria ou totem de retirada.
-            </p>
-          </div>
-
-          <div className="text-left">
-            <OrderSummary
-              movie={movie}
-              session={session}
-              seats={seats}
-              tickets={tickets}
-              snacks={snackLines}
-              total={total}
-            />
-          </div>
-
-          <Link
-            href="/"
-            onClick={() => reset()}
-            className="mt-6 inline-block rounded-full bg-accent px-6 py-3 text-sm font-bold text-background"
-          >
-            Voltar ao início
-          </Link>
-        </div>
-      </div>
+      <TicketView
+        data={ticket}
+        onClose={() => {
+          reset();
+          router.push("/");
+        }}
+      />
     );
   }
 
@@ -165,6 +167,7 @@ export default function CheckoutPage() {
           seats={seats}
           tickets={tickets}
           snacks={snackLines}
+          fee={fee}
           total={total}
         />
         <p className="mt-2 px-1 text-xs text-muted">

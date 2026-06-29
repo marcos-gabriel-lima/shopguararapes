@@ -14,6 +14,7 @@ export function OrderSummary({
   seats,
   tickets,
   snacks = [],
+  fee = 0,
   total,
 }: {
   movie: Movie;
@@ -21,6 +22,7 @@ export function OrderSummary({
   seats: string[];
   tickets: TicketSelection;
   snacks?: SnackLine[];
+  fee?: number;
   total: number;
 }) {
   const full = session.price;
@@ -53,6 +55,7 @@ export function OrderSummary({
         {snacks.map((s) => (
           <Row key={s.name} label={`${s.name} × ${s.qty}`} value={brl(s.qty * s.price)} />
         ))}
+        {fee > 0 && <Row label="Taxa de conveniência" value={brl(fee)} />}
       </dl>
 
       <div className="my-4 h-px bg-border" />
