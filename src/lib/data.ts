@@ -177,6 +177,26 @@ export const MOVIES: Movie[] = [
     posterUrl: tmdb("f3yLlUrJDdDL8d4nxywyotN45SL", "w780"),
     backdropUrl: tmdb("82lM4GJ9uuNvNDOEpxFy77uv4Ak", "w780"),
   },
+  {
+    id: "m9",
+    slug: "segredo-obscuro",
+    title: "Segredo Obscuro",
+    originalTitle: "Shell",
+    synopsis:
+      "Samantha Lake, uma atriz em busca de relevância, é apresentada ao mundo ultraglamouroso de Zoe Shannon, CEO da empresa de bem-estar Shell. Quando pacientes começam a desaparecer, Samantha percebe que a Shell esconde um segredo monstruoso. Terror corporal com Elisabeth Moss e Kate Hudson.",
+    genres: ["Terror", "Suspense"],
+    durationMin: 100,
+    classification: "16",
+    director: "Max Minghella",
+    cast: ["Elisabeth Moss", "Kate Hudson", "Kaia Gerber"],
+    releaseDate: "2026-06-18",
+    status: "showing",
+    rating: 6.6,
+    poster: ["#7f1d1d", "#1f2937"],
+    posterUrl: tmdb("lHXXpXzPv22WQCzTYMuwers5jkz", "w780"),
+    backdropUrl: tmdb("yGH7ke2rbeSI4IZx90UzIrMlWLq", "w780"),
+    sessionTimes: ["15:40", "18:20", "21:00", "22:00"],
+  },
 ];
 
 export const SNACKS: Snack[] = [

@@ -1,4 +1,5 @@
 import { hash } from "./hash";
+import { MOVIES } from "./data";
 import type { Session, Format, Audio } from "./types";
 
 const BASE_DATE = "2026-06-27";
@@ -19,6 +20,8 @@ export function catalogDates(): string[] {
 }
 
 function timesFor(movieId: string): string[] {
+  const custom = MOVIES.find((m) => m.id === movieId)?.sessionTimes;
+  if (custom?.length) return custom;
   return hash(movieId) % 2 === 0 ? TIMES_A : TIMES_B;
 }
 

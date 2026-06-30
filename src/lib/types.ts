@@ -24,6 +24,8 @@ export interface Movie {
   posterUrl?: string;
   /** URL da imagem widescreen (backdrop) — usada no ingresso. */
   backdropUrl?: string;
+  /** Horários fixos das sessões (sobrescreve a geração padrão). */
+  sessionTimes?: string[];
 }
 
 export type Format = "2D" | "3D" | "IMAX";
