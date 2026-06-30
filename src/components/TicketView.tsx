@@ -105,7 +105,9 @@ export function TicketView({ data, onClose }: { data: TicketData; onClose: () =>
             {/* Texto sobre a capa */}
             <div className="absolute inset-x-0 bottom-0 p-4">
               <p className="text-sm font-medium text-white/85">{CINEMA.name}</p>
-              <h2 className="text-2xl font-black leading-tight text-white">{movie.title}</h2>
+              <h2 className="text-xl font-black leading-tight text-white sm:text-2xl">
+                {movie.title}
+              </h2>
               <div className="mt-2 flex flex-wrap items-center gap-2">
                 <ClassBadge classification={movie.classification} />
                 <span className="rounded-md bg-info px-2.5 py-1 text-xs font-bold uppercase text-white">
@@ -133,9 +135,9 @@ export function TicketView({ data, onClose }: { data: TicketData; onClose: () =>
                 <p className="text-xs uppercase tracking-wide text-white/70">Sala</p>
                 <p className="text-xl font-bold">Sala {session.room}</p>
               </div>
-              <div className="text-right">
+              <div className="ml-3 min-w-0 text-right">
                 <p className="text-xs uppercase tracking-wide text-white/70">Assento(s)</p>
-                <p className="text-xl font-bold">{seats.join(", ")}</p>
+                <p className="break-words text-xl font-bold">{seats.join(", ")}</p>
               </div>
             </div>
           </div>
@@ -157,14 +159,16 @@ export function TicketView({ data, onClose }: { data: TicketData; onClose: () =>
         <div className="relative rounded-3xl bg-surface-2 px-6 py-6">
           <span className="absolute -top-3 left-1/2 h-6 w-6 -translate-x-1/2 rounded-full bg-background" />
           <span className="absolute -bottom-3 left-1/2 h-6 w-6 -translate-x-1/2 rounded-full bg-background" />
-          <div className="flex items-start justify-between">
-            <div>
+          <div className="flex items-start justify-between gap-3">
+            <div className="shrink-0">
               <p className="text-sm text-muted">Ingresso(s)</p>
               <p className="text-3xl font-black">{count}</p>
             </div>
-            <div className="text-right">
+            <div className="min-w-0 text-right">
               <p className="text-sm text-muted">Tipo(s) de ingresso(s)</p>
-              <p className="text-2xl font-black">{ticketTypeLabel(tickets)}</p>
+              <p className="text-lg font-black leading-tight sm:text-2xl">
+                {ticketTypeLabel(tickets)}
+              </p>
             </div>
           </div>
         </div>
