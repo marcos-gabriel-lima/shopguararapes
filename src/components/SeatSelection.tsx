@@ -55,39 +55,43 @@ export function SeatSelection({ movie, session }: { movie: Movie; session: Sessi
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-2 overflow-x-auto">
-            {ROWS.map((row) => (
-              <div key={row} className="flex items-center gap-2">
-                <span className="w-4 text-center text-xs font-semibold text-muted">{row}</span>
-                <div className="flex gap-1.5">
-                  {Array.from({ length: SEATS_PER_ROW }, (_, i) => {
-                    const n = i + 1;
-                    const id = `${row}${n}`;
-                    const isOccupied = occupied.has(id);
-                    const isSelected = selected.includes(id);
-                    return (
-                      <span key={id} className="flex">
-                        <button
-                          aria-label={`Poltrona ${id}`}
-                          disabled={isOccupied}
-                          onClick={() => toggleSeat(id)}
-                          className={`grid h-7 w-7 place-items-center rounded-md text-[10px] font-bold transition ${
-                            isOccupied
-                              ? "cursor-not-allowed bg-surface-2 text-muted/40"
-                              : isSelected
-                                ? "bg-accent text-background"
-                                : "bg-surface-2 text-foreground hover:bg-accent/40"
-                          }`}
-                        >
-                          {n}
-                        </button>
-                        {n === AISLE_AFTER && <span className="w-4" />}
-                      </span>
-                    );
-                  })}
+          <div className="no-scrollbar -mx-2 overflow-x-auto px-2">
+            <div className="mx-auto flex w-max flex-col gap-1.5">
+              {ROWS.map((row) => (
+                <div key={row} className="flex items-center gap-1.5">
+                  <span className="w-4 shrink-0 text-center text-[11px] font-semibold text-muted">
+                    {row}
+                  </span>
+                  <div className="flex gap-1 sm:gap-1.5">
+                    {Array.from({ length: SEATS_PER_ROW }, (_, i) => {
+                      const n = i + 1;
+                      const id = `${row}${n}`;
+                      const isOccupied = occupied.has(id);
+                      const isSelected = selected.includes(id);
+                      return (
+                        <span key={id} className="flex">
+                          <button
+                            aria-label={`Poltrona ${id}`}
+                            disabled={isOccupied}
+                            onClick={() => toggleSeat(id)}
+                            className={`grid h-6 w-6 shrink-0 place-items-center rounded-md text-[10px] font-bold transition sm:h-7 sm:w-7 ${
+                              isOccupied
+                                ? "cursor-not-allowed bg-surface-2 text-muted/40"
+                                : isSelected
+                                  ? "bg-accent text-background"
+                                  : "bg-surface-2 text-foreground hover:bg-accent/40"
+                            }`}
+                          >
+                            {n}
+                          </button>
+                          {n === AISLE_AFTER && <span className="w-3 sm:w-4" />}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Legenda */}

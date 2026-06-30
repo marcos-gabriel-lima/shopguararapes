@@ -52,7 +52,7 @@ export function TabBar() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 z-50 w-full max-w-[480px] border-t border-border bg-surface/95 backdrop-blur">
+    <nav className="fixed bottom-0 left-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 border-t border-border bg-surface/95 backdrop-blur">
       <ul className="flex items-stretch justify-around px-2 pb-[calc(8px+env(safe-area-inset-bottom))] pt-2">
         {TABS.map((tab) => {
           const active =
