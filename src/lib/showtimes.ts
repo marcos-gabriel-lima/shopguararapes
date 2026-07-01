@@ -2,7 +2,7 @@ import { hash } from "./hash";
 import { MOVIES } from "./data";
 import type { Session, Format, Audio } from "./types";
 
-const BASE_DATE = "2026-06-27";
+const BASE_DATE = "2026-07-01";
 const TIMES_A = ["13:15", "13:30", "14:15", "16:40", "19:10", "21:45"];
 const TIMES_B = ["14:00", "16:30", "18:50", "21:20"];
 const ROOMS = 8;

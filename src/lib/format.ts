@@ -14,7 +14,7 @@ const WEEKDAYS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 const MONTHS = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
 
 /** Recebe yyyy-mm-dd e devolve { weekday, day, month, isToday } */
-export function dateParts(iso: string, todayIso = "2026-06-27") {
+export function dateParts(iso: string, todayIso = "2026-07-01") {
   const [y, m, d] = iso.split("-").map(Number);
   const date = new Date(y, m - 1, d);
   return {
